@@ -3,7 +3,9 @@
 #we also need the time module to get the current time
 
 
+from logging import root
 import tkinter as tk
+from tkinter import *
 import time
 
 
@@ -23,8 +25,13 @@ clockrt.wm_attributes("-topmost", 1)
 #the colon blinks on or off every second  (depends on whether it was on or off last second)
 #the colon is just part of the label's text and is not a separate label
 
+#get dimensions of the window
+width = clockrt.winfo_reqwidth()
+
 #create label
-font_size = 110
+# font_size = 110
+# set font size to 15% of the width of the window
+font_size = int(width * 0.4)
 label = tk.Label(clockrt, text="00:00", font=("Helvetica", font_size), bg="white", fg="black", borderwidth=0, relief="flat")
 label.place(relx=0.5, rely=0.5, anchor="center")
 
@@ -40,6 +47,9 @@ def draw_label():
     current_time = time.strftime("%I"+colon+"%M %p")
     #set the label's text to the time
     label.config(text=current_time)
+    #update the font size
+    font_size = int(width * 0.4)
+    label.config(font=("Helvetica", font_size))
     #wait one second
     clockrt.after(1000, draw_label)
 
